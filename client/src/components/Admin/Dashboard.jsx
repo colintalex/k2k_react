@@ -4,6 +4,8 @@ import { withRouter } from "react-router";
 import "./dashboard.css";
 import NotFound from "../NotFound/NotFound";
 import Books from "../Books/Books";
+import AdminNav from "./AdminNav";
+import Blog from '../Blog/Blog'
 
 class Dashboard extends Component {
   constructor(props) {
@@ -18,6 +20,7 @@ class Dashboard extends Component {
       islogout: true
     });
   };
+  
   render() {
     if (this.state.islogout) {
       return <Redirect to="/login" />;
@@ -25,27 +28,15 @@ class Dashboard extends Component {
     const { match } = this.props;
     return (
       <div>
-        <ul className='admin-nav'>
-          <li>
-            <NavLink to='/admin'>Dashboard</NavLink>
-          </li>
-          <li>
-            <NavLink to='/admin/books'>Books</NavLink>
-          </li>
-          <li>
-            <NavLink to='/blog'>Blog</NavLink>
-          </li>
-          <li className="push-right">
-            <button onClick={this.signOut} href="#">
-              Sign Out
-            </button>
-          </li>
-        </ul>
         <main role="main">
           <div className="main">
+            <AdminNav signOut={this.signOut} />
             <Switch>
               <Route path="/admin/books">
                 <Books />
+              </Route>
+              <Route path="/admin/blog">
+                <Blog />
               </Route>
             </Switch>
           </div>
